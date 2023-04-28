@@ -1,0 +1,20 @@
+n1=0:9;
+n2=-250:250;
+x=10*(1-abs(n2)/250);
+h=(1-(abs(n1-5))/5);
+P=length(h);
+Nx=length(x);
+y=conv(x,h);
+P = length(h);
+N = length(x);
+D = N-P+1;
+x = [zeros(P-1,1);x];
+H = fft(h,N);
+y = [];
+for r = 0:fix(N/D)-1
+xr = x(r*D+1:r*D+N);
+Xr = fft(xr);
+Yrp = Xr .* H;
+yrp = ifft(Yrp);
+y = [y; yrp(P:N)];
+end
